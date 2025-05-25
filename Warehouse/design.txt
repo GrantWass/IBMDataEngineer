@@ -1,0 +1,74 @@
+MyDimDate
+dateid
+date
+day
+dayname
+weekday
+week
+month
+monthname
+quarter
+year
+
+
+MyDimWaste
+wasteid
+wastetype
+
+
+MyDimZone
+zoneid
+collectionzone
+city
+
+MyFactTrips
+tripid
+dateid
+wasteid
+zoneid
+tons_collected
+
+
+CREATE TABLE MyDimDate (
+    dateid DATE PRIMARY KEY,
+    date DATE,
+    day INT,
+    dayname VARCHAR(15),
+    weekday INT,
+    week INT,
+    month INT,
+    monthname VARCHAR(15),
+    quarter INT,
+    year INT
+);
+
+
+CREATE TABLE MyDimWaste (
+    wasteid SERIAL PRIMARY KEY,
+    wastetype VARCHAR(50)
+);
+
+
+CREATE TABLE MyDimZone (
+    zoneid SERIAL PRIMARY KEY,
+    collectionzone VARCHAR(50),
+    city VARCHAR(50)
+);
+
+
+CREATE TABLE MyFactTrips (
+    tripid SERIAL PRIMARY KEY,
+    dateid DATE,
+    wasteid INT,
+    zoneid INT,
+    tons_collected DECIMAL(6,2),
+    FOREIGN KEY (dateid) REFERENCES MyDimDate(dateid),
+    FOREIGN KEY (wasteid) REFERENCES MyDimWaste(wasteid),
+    FOREIGN KEY (zoneid) REFERENCES MyDimZone(zoneid)
+);
+
+
+COPY DimDate(DateID, Date, Year, Quarter, QuarterName, Month, MonthName, Day, Weekday, WeekdayName)
+FROM '/DimDate.csv'
+DELIMITER ','
+CSV HEADER;

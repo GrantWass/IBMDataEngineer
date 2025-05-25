@@ -22,3 +22,16 @@ Attributes: customer_id, customer_name, customer_email, customer_since, customer
 
 Product
 Attributes: product_id, product_category, product_type, product_name, description, price
+
+
+SELECT 
+  Stationid, 
+  TruckType, 
+  SUM(Wastecollected) AS TotalWasteCollected
+FROM FactTrips
+JOIN DimTruck USING (Truckid)
+GROUP BY GROUPING SETS (
+  (Stationid),
+  (TruckType),
+  ()
+)
