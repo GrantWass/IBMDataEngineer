@@ -72,3 +72,13 @@ COPY DimDate(DateID, Date, Year, Quarter, QuarterName, Month, MonthName, Day, We
 FROM '/DimDate.csv'
 DELIMITER ','
 CSV HEADER;
+
+SELECT 
+  Year, 
+  City, 
+  Stationid, 
+  SUM(Wastecollected) AS TotalWasteCollected
+FROM FactTrips
+JOIN DimDate USING (Dateid)
+JOIN DimStation USING (Stationid)
+GROUP BY ROLLUP (Year, City, Stationid)

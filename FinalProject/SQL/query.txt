@@ -1,0 +1,28 @@
+CREATE TABLE `Sales`.`sales_data` (`product_id` INT NOT NULL , `customer_id` INT NOT NULL , `price` INT NOT NULL , `quantity` INT NOT NULL , `timestamp` DATE NOT NULL ) ENGINE = InnoDB;
+
+CREATE TABLE sales_data (
+    product_id INT NOT NULL,
+    customer_id INT NOT NULL,
+    price INT NOT NULL,
+    quantity INT NOT NULL,
+    sale_timestamp TIMESTAMP NOT NULL
+);
+
+
+#!/bin/bash
+
+USER="your_mysql_username"
+PASSWORD="your_mysql_password"
+DATABASE="sales"
+TABLE="sales_data"
+OUTPUT_FILE="sales_data.sql"
+
+# Export the table to a .sql file
+mysqldump -u $USER -p$PASSWORD $DATABASE $TABLE > $OUTPUT_FILE
+
+# Print success message
+echo "Data exported to $OUTPUT_FILE"
+
+
+
+db.electronics.countDocuments({ type: "smart phone", screen size: 6 })
